@@ -4,7 +4,8 @@ const express = require("express");
 const bodyParser = require("body-parser");
 
 const app = express();
-var items = [];
+let items = [];
+let leftoversItems = [];
 
 app.set("view engine", "ejs");
 
@@ -15,25 +16,44 @@ app.use(
 );
 app.use(express.static("public"));
 app.get("/", function (req, res) {
-  var today = new Date();
+  let today = new Date();
 
-  var options = {
+  let options = {
     weekday: "long",
     day: "numeric",
     month: "long",
   };
 
-  var day = today.toLocaleDateString("en-US", options);
+  let day = today.toLocaleDateString("en-US", options);
 
-  res.render("list", { kindOfDay: day, newListItems: items });
+  res.render("list", { listTitle: day, newListItems: items });
 });
 
 app.post("/", function (req, res) {
-  var item = req.body.newItem;
+  let item = req.body.newItem;
 
-  items.push(item);
+  if (req.body.list === "Leftovers") {
+    leftoversItems.push(item);
 
-  res.redirect("/");
+    res.redirect("/leftovers");
+  } else {
+    items.push(item);
+
+    res.redirect("/");
+  }
+});
+
+app.get("/leftovers", function (req, res) {
+  res.render("list", {
+    listTitle: "Leftovers List",
+    newListItems: leftoversItems,
+  });
+});
+
+app.post("/leftovers", function (req, res) {
+  let item = req.body.newItem;
+  leftoversItems.push(item);
+  res.redirect("/leftovers");
 });
 
 app.listen(3000, function () {
