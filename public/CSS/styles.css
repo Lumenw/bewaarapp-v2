@@ -1,8 +1,10 @@
 html {
-  background-color: #e4e9fd;
-  background-image: -webkit-linear-gradient(65deg, #a683e3 50%, #e4e9fd 50%);
+  background-color: #344561;
+ /* background-image: -webkit-linear-gradient(68deg, #201161 50%, #e4e9fd 50%);*/
+  background-image: url("https://www.transparenttextures.com/patterns/food.png");*/
   min-height: 1000px;
-  font-family: "helvetica neue";
+  font-family: 'Kalam', cursive;
+  
 }
 
 h1 {
@@ -19,7 +21,7 @@ h1 {
 }
 
 #heading {
-  background-color: #a683e3;
+  background-color: #395994;
   text-align: center;
 }
 
@@ -81,7 +83,7 @@ input[type="text"] {
 
 input[type="text"]:focus {
   outline: none;
-  box-shadow: inset 0 -3px 0 0 #a683e3;
+  box-shadow: inset 0 -3px 0 0 #794dc4;
 }
 
 ::placeholder {
