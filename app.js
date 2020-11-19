@@ -43,6 +43,12 @@ app.post("/", function (req, res) {
   }
 });
 
+app.post("/leftovers", function (req, res) {
+  let item = req.body.newItem;
+  leftoversItems.push(item);
+  res.redirect("/leftovers");
+});
+
 app.get("/leftovers", function (req, res) {
   res.render("list", {
     listTitle: "Leftovers List",
@@ -50,10 +56,8 @@ app.get("/leftovers", function (req, res) {
   });
 });
 
-app.post("/leftovers", function (req, res) {
-  let item = req.body.newItem;
-  leftoversItems.push(item);
-  res.redirect("/leftovers");
+app.get("/about", function (req, res) {
+  res.render("about");
 });
 
 app.listen(3000, function () {
