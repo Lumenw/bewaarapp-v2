@@ -5,31 +5,31 @@
     <title>BeWaarAPP</title>
     <link rel="stylesheet" href="css/styles.css">
   </head>
+  
+  
   <body>
 
     <div class="box" id="heading">
-
       <h1><%= kindOfDay %></h1>
-
     </div class="box">
 
     <div>
-
+      <% for (var i=0; i<newListItems.length; i++){ %>
+        <div class="item">
+          <input type="checkbox">  
+          <p><%=  newListItems[i] %></p>
+        </div>
+        <%  } %>
+        
+        <form class="" action="/" method="post">
+          <input type="text" name="newItem" />
+          <button type="submit" name="button">Add</button>
+        </form>
+    
     </div>
     
-    <ul>
-      
-      
+    
 
-      <% for (var i=0; i<newListItems.length; i++){ %>
-<li><%=  newListItems[i] %></li>
-
-     <%  } %>
-    </ul>
-
-    <form class="" action="/" method="post">
-      <input type="text" name="newItem" />
-      <button type="submit" name="button">Add</button>
-    </form>
+    
   </body>
 </html>
