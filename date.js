@@ -1,9 +1,9 @@
 //js hint esversion:6
 
 exports.getDate = function () {
-  let today = new Date();
+  const today = new Date();
 
-  let options = {
+  const options = {
     weekday: "long",
     day: "numeric",
     month: "long",
@@ -12,9 +12,9 @@ exports.getDate = function () {
   return today.toLocaleDateString("en-US", options);
 };
 exports.getDay = function () {
-  let today = new Date();
+  const today = new Date();
 
-  let options = {
+  const options = {
     weekday: "long",
   };
 
