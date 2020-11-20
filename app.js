@@ -2,9 +2,7 @@
 
 const express = require("express");
 const bodyParser = require("body-parser");
-const mongoose = require("mongoose";)
-const date = require(__dirname + "/date.js");
-
+const mongoose = require("mongoose");
 
 const app = express();
 const items = [];
@@ -19,30 +17,92 @@ app.use(
 );
 app.use(express.static("public"));
 
+mongoose.connect("mongodb://localhost:27017/bewaarappDB", {
+  useNewUrlParser: true,
+});
 
-mongoose.connect("mongodb://localhost:27017/bewaarappDB", {useNewUrlParser: true});
+const itemSchema = {
+  name: String,
+  expirationDate: Date,
+};
 
+const Item = mongoose.model("Item", itemSchema);
 
+const item1 = new Item({
+  name: "Welkom bij de Bewaarlijst",
+});
 
+const item2 = new Item({
+  name: "Klik op de Plus om een nieuw item toe te voegen",
+});
+
+const item3 = new Item({
+  name: "hiermee kan je een item verwijderen",
+});
+
+const defaultItems = [item1, item2, item3];
+
+// Item.insertMany(defaultItems, function (err) {
+//   if (err) {
+//     console.log(err);
+//   } else {
+//     console.log("succesfully saved default items to DB");
+//   }
+// });
 
 app.get("/", function (req, res) {
-  const day = date.getDate();
+  Item.find()
+    .then((docs) => {
+      console.log("docs:", docs);
 
-  res.render("list", { listTitle: day, newListItems: items });
+      let nowDateMs = new Date().getTime();
+
+      res.render("list", {
+        listTitle: "Brood",
+        newListItems: docs.map((doc) => {
+          doc.diffDays = 0;
+          if (doc.expirationDate) {
+            let diffMs = doc.expirationDate.getTime() - nowDateMs;
+            doc.diffDays = Math.floor(diffMs / 1000 / 60 / 60 / 24);
+          }
+          return doc;
+        }),
+      });
+    })
+    .catch((err) => {
+      res.send({ error: err.message });
+    });
 });
 
 app.post("/", function (req, res) {
   const item = req.body.newItem;
 
-  if (req.body.list === "Leftovers") {
-    leftoversItems.push(item);
+  console.log("POST new item:", item);
 
-    res.redirect("/leftovers");
-  } else {
-    items.push(item);
+  const nowDate = new Date();
 
-    res.redirect("/");
-  }
+  const newItem = new Item({
+    name: item,
+    expirationDate: new Date(nowDate.getTime() + 7776000000), // + 90 days
+  });
+  newItem
+    .save()
+    .then(() => {
+      res.redirect("/");
+    })
+    .catch((err) => {
+      res.redirect("/");
+    });
+
+  // if (req.body.list === "Leftovers") {
+  //   leftoversItems.push(item);
+
+  //   res.redirect("/leftovers");
+  // } else {
+  //   items.push(item);
+
+  //   res.redirect("/");
+  // }
 });
 
 app.post("/leftovers", function (req, res) {
