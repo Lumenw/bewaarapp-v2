@@ -2,7 +2,9 @@
 
 const express = require("express");
 const bodyParser = require("body-parser");
+const mongoose = require("mongoose";)
 const date = require(__dirname + "/date.js");
+
 
 const app = express();
 const items = [];
@@ -16,6 +18,12 @@ app.use(
   })
 );
 app.use(express.static("public"));
+
+
+mongoose.connect("mongodb://localhost:27017/bewaarappDB", {useNewUrlParser: true});
+
+
+
 
 app.get("/", function (req, res) {
   const day = date.getDate();
