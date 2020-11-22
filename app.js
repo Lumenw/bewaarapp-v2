@@ -17,9 +17,12 @@ app.use(
 );
 app.use(express.static("public"));
 
-mongoose.connect("mongodb://localhost:27017/bewaarappDB", {
-  useNewUrlParser: true,
-});
+mongoose.connect(
+  "mongodb+srv://admin-rosa:antafluisbestwelok@cluster0.d6pkn.mongodb.net/bewaarappDB",
+  {
+    useNewUrlParser: true,
+  }
+);
 
 const itemSchema = {
   name: String,
