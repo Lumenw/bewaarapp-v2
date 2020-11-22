@@ -6,10 +6,19 @@
 
     <div class="box">
       <% for (var i=0; i<newListItems.length; i++){ %>
+        <form action="/delete" method="post">
+
+
+
         <div class="item">
-          <input type="checkbox">  
+          <input type="checkbox" name="checkbox" value="<%="item._id"%> onChange="this.form.submit()">  
           <p><%=  newListItems[i].name %> - <%= newListItems[i].diffDays %> days</p>
         </div>
+    </form>
+
+
+
+
         <%  } %>
         
         <form class="" action="/" method="post">
@@ -20,4 +29,4 @@
     </div>
     
     
-    <%- include("footer"); -%> 
+    <%- include("footer")-%> 

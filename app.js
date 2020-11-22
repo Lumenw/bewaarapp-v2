@@ -111,6 +111,17 @@ app.post("/leftovers", function (req, res) {
   res.redirect("/leftovers");
 });
 
+app.post("/delete", function (req, res) {
+  const checkedItemID = req.body.checkbox;
+
+  item.findByIdAndRemove(checkedItemID, function (err) {
+    if (!err) {
+      console.log("item succesfully removed");
+      res.redirect("/");
+    }
+  });
+});
+
 app.get("/leftovers", function (req, res) {
   res.render("list", {
     listTitle: "Leftovers List",
