@@ -113,12 +113,16 @@ app.post("/leftovers", function (req, res) {
 
 app.post("/delete", function (req, res) {
   const checkedItemID = req.body.checkbox;
+  console.log("checkedItemID:", checkedItemID);
 
-  item.findByIdAndRemove(checkedItemID, function (err) {
-    if (!err) {
-      console.log("item succesfully removed");
-      res.redirect("/");
+  Item.findByIdAndRemove(checkedItemID, function (err) {
+    if (err) {
+      return res.send({
+        error: err.message,
+      });
     }
+    console.log("item succesfully removed");
+    res.redirect("/");
   });
 });
 
