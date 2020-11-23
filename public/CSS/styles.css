@@ -1,10 +1,8 @@
 html {
   background-color: #344561;
- /* background-image: -webkit-linear-gradient(68deg, #201161 50%, #e4e9fd 50%);*/
-  background-image: url("https://www.transparenttextures.com/patterns/food.png");*/
+  background-image: url("https://www.transparenttextures.com/patterns/food.png");
   min-height: 1000px;
-  font-family: 'Kalam', cursive;
-  
+  font-family: "Kalam", cursive;
 }
 
 h1 {
